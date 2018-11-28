@@ -1,7 +1,7 @@
 import * as moment from 'moment';
+import SpotifyWebApi from 'spotify-web-api-node';
 
 import MusicApi from './MusicApi';
-import SpotifyWebApi from 'spotify-web-api-node';
 import Track from '../models/Track';
 
 export default class SpotifyMusicApi implements MusicApi {
@@ -34,7 +34,7 @@ export default class SpotifyMusicApi implements MusicApi {
 			.map(this.mapTrack);
 	}
 
-	public async getTrack(id: string) {
+	public async getTrack(id: string): Promise<Track> {
 		await this.logIn();
 
 		const response = await this.spotify.getTrack(id);

@@ -4,6 +4,13 @@ import MusicApi from '../api/MusicApi';
 
 export function searchTracks(musicApi: MusicApi) {
 	return async (request: Express.Request, response: Express.Response) => {
+		if (!request.query.q) {
+			response.statusCode = 400;
+			return response.json({
+				error: 'Search terms expected',
+			});
+		}
+
 		try {
 			const tracks = await musicApi.searchTracks(request.query.q);
 			response.json(tracks);
@@ -23,7 +30,9 @@ export function getTrack(musicApi: MusicApi) {
 		} catch (err) {
 			console.log(err);
 			response.statusCode = 500;
-			response.end(err.message);
+			response.json({
+				error: err.message,
+			});
 		}
 	};
 }
