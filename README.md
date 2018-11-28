@@ -9,7 +9,7 @@ There is also a websocket server running so clients can get real-time updates of
 Install node modules
 
 ```
-yarn install
+npm install
 ```
 
 ## Running the API
