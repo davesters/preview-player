@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "An API for searching music and getting URLs to previews for music tracks.",
   "main": "build/start.js",
+  "engines": {
+    "node": "~10.13.0"
+  },
   "scripts": {
     "start": "node build/start.js",
     "prestart": "npm run build --silent",
