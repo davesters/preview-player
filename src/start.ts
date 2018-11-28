@@ -27,10 +27,11 @@ const listenerServer = new ListenerServer(musicApi);
 app.get('/tracks/search', musicHandlers.searchTracks(musicApi));
 app.get('/tracks/:id', musicHandlers.getTrack(musicApi));
 
-app.listen(8000, '0.0.0.0', () => {
-	console.log('API server listening on port 8000');
+const port: any = process.env.PORT || 8000;
+const httpServer = app.listen(port, '0.0.0.0', () => {
+	console.log(`API server listening on port ${port}`);
 });
 
-listenerServer.start(() => {
-	console.log('Listener socket server listening on port 8001');
+listenerServer.start(httpServer, () => {
+	console.log(`Listener server listening at /ws on port ${port}`);
 });

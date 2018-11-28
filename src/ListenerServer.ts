@@ -17,14 +17,20 @@ export default class ListenerServer {
 		this.musicApi = musicApi;
 	}
 
-	public start(cb: () => void) {
-		this.server = new WebSocket.Server({ port: 8001, clientTracking: true }, cb);
+	public start(server, cb: () => void) {
+		this.server = new WebSocket.Server({
+			server,
+			clientTracking: true,
+			path: '/ws',
+		});
 
 		this.server.on('connection', socket => {
 			console.log(`LISTENER CONNECTED: ${this.server.clients.size} connection(s)`);
 
 			socket.on('message', data => this.onMessage(JSON.parse(data.toString())));
 		});
+
+		cb();
 	}
 
 	private onMessage(message: ListenMessage) {
